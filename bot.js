@@ -2,7 +2,7 @@ const mineflayer = require('mineflayer')
 
 const bot = mineflayer.createBot({
   host: 'mafiauniverse2026.aternos.me', // example: yourserver.aternos.me
-  port: 57589,
+  port: 25565,
   username: 'AternosBot',
   version: false // auto detect version (supports most versions)
 })
