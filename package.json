@@ -1,16 +1,3 @@
-{
-  "name": "ultra-mc-bot",
-  "version": "1.0.0",
-  "description": "All-in-one Ultra PvP Minecraft Java Bot (1.21 Cracked)",
-  "main": "bot.js",
-  "type": "commonjs",
-  "scripts": {
-    "start": "node bot.js"
-  },
-  "dependencies": {
-    "mineflayer": "^4.15.0",
-    "mineflayer-pathfinder": "^2.4.5",
-    "mineflayer-pvp": "^1.3.2",
-    "dotenv": "^16.4.5"
-  }
+"scripts": {
+  "start": "node bot.js"
 }
