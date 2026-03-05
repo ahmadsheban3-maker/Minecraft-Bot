@@ -1,16 +1,15 @@
-require("dotenv").config();
 const mineflayer = require("mineflayer");
 const { pathfinder, Movements, goals } = require("mineflayer-pathfinder");
 const pvp = require("mineflayer-pvp").plugin;
 
-// ====== CONFIG ======
-const SERVER_ADDRESS = process.env.MC_HOST || "YOURSERVER.aternos.me";
-const SERVER_PORT = parseInt(process.env.MC_PORT) || 25565;
-const BOT_USERNAME = process.env.BOT_USERNAME || "UltraKiller";
-const AUTH_PASSWORD = process.env.AUTH_PASSWORD || "";
-const ENABLE_PVP = process.env.ENABLE_PVP === "true" || false;
-const ANTI_AFK_INTERVAL = parseInt(process.env.ANTI_AFK_INTERVAL) || 60;
-// ===================
+// ===== CONFIG =====
+const SERVER_ADDRESS = "mafiauniverse2026.aternos.me"; // Replace with your server
+const SERVER_PORT = 57589;                       // Replace with your port
+const BOT_USERNAME = "UltraKiller26";             // Bot username
+const AUTH_PASSWORD = "";                        // Leave "" if none
+const ENABLE_PVP = true;                        // true to attack nearby players
+const ANTI_AFK_INTERVAL = 60;                    // seconds
+// ==================
 
 function startBot() {
   console.log("Connecting to:", SERVER_ADDRESS, SERVER_PORT);
@@ -19,14 +18,14 @@ function startBot() {
     host: SERVER_ADDRESS,
     port: SERVER_PORT,
     username: BOT_USERNAME,
-    version: false,
+    version: "1.21", // fixed version
   });
 
   bot.loadPlugin(pathfinder);
   bot.loadPlugin(pvp);
 
   bot.once("spawn", () => {
-    console.log("✅ Bot joined server");
+    console.log("✅ Bot joined server successfully");
 
     const mcData = require("minecraft-data")(bot.version);
     const movements = new Movements(bot, mcData);
@@ -40,7 +39,7 @@ function startBot() {
       }, 3000);
     }
 
-    // Anti-AFK
+    // Anti-AFK movement
     setInterval(() => {
       bot.setControlState("forward", true);
       bot.setControlState("jump", true);
@@ -48,7 +47,7 @@ function startBot() {
         bot.setControlState("forward", false);
         bot.setControlState("jump", false);
       }, 800);
-      console.log("💤 Anti-AFK ping");
+      console.log("💤 Anti-AFK active");
     }, ANTI_AFK_INTERVAL * 1000);
 
     // Optional PvP
@@ -72,7 +71,7 @@ function startBot() {
     setTimeout(() => bot.respawn(), 2000);
   });
 
-  // Simple offline AI chat
+  // Offline AI chat
   bot.on("chat", (username, message) => {
     if (username === bot.username) return;
     const msg = message.toLowerCase();
@@ -94,7 +93,7 @@ function startBot() {
     }
   });
 
-  // Reconnect
+  // Reconnect on disconnect
   bot.on("end", () => {
     console.log("🔄 Disconnected — Reconnecting in 20s...");
     setTimeout(startBot, 20000);
